@@ -1,0 +1,43 @@
+Uncomplicated Firewall
+========
+
+Ansible role that installs and configures ufw, AKA [The Uncomplicated Firewall](https://launchpad.net/ufw).
+
+Role Variables
+--------------
+
+ufw_whitelisted_ports: A list of ports that the firewall should allow access to. The default is to open port 22. This variable applies to incoming connections from both IPv4 and IPv6 clients. If you wanted to allow access to SSH and Nginx, you might do something like this:
+
+    ufw_whitelisted_ports:
+      - 22
+      - 80
+      - 443
+
+ufw_whitelisted_ipv4_addresses: A list of IPv4 addresses that the firewall should allow access to. The default is empty. These addresses will be able to access any available port on the system, including ones that are not made publicly accessible via ufw_whitelisted_ports. This is a good way to ensure that certain services can only be reached by approved IP addresses. For example:
+
+    ufw_whitelisted_ipv4_addresses:
+      - 192.168.0.1
+      - 10.0.0.1
+
+ufw_whitelisted_ipv6_addresses: This variable behaves the same as ufw_whitelisted_ipv4_addresses, except it applies to IPv6 addresses. The default is empty. The following example would allow access from Google's IPv6 address:
+
+    ufw_whitelisted_ipv6_addresses:
+      - 2607:f8b0:4004:802::1001
+
+License
+-------
+
+The MIT License (MIT)
+
+Copyright (c) 2014 Joshua Lund
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+Author Information
+------------------
+
+You can find me on [Twitter](https://twitter.com/joshualund), and on [GitHub](https://github.com/jlund/). I also occasionally blog at [MissingM](http://missingm.co).
