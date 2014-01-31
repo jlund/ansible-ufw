@@ -16,17 +16,16 @@
 ### RULES ###
 
 {% for port in ufw_whitelisted_ports %}
-### tuple ### allow tcp {{ port }} ::/0 any ::/0 in
+### tuple ### allow any {{ port }} ::/0 any ::/0 in
 -A ufw6-user-input -p tcp --dport {{ port }} -j ACCEPT
+-A ufw6-user-input -p udp --dport {{ port }} -j ACCEPT
 
 {% endfor %}
-
 {% for ip in ufw_whitelisted_ipv6_addresses %}
 ### tuple ### allow any any ::/0 any {{ ip }} in
 -A ufw6-user-input -s {{ ip }} -j ACCEPT
 
 {% endfor %}
-
 ### END RULES ###
 
 ### LOGGING ###
