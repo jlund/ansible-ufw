@@ -1,8 +1,8 @@
 ---
-- name: Install UFW
+- name: Install ufw
   apt: pkg=ufw
 
-- name: Generate UFW rules
+- name: Generate ufw rules
   template: src={{ item }}.j2
             dest=/lib/ufw/{{ item }}
             owner=root
@@ -11,10 +11,10 @@
   with_items:
     - user.rules
     - user6.rules
-  notify: Restart UFW
+  notify: Restart ufw
 
-- name: Enable UFW
+- name: Enable ufw
   lineinfile: dest=/etc/ufw/ufw.conf
               regexp="^ENABLED"
               line="ENABLED=yes"
-  notify: Restart UFW
+  notify: Restart ufw
