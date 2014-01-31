@@ -17,6 +17,13 @@
 :ufw-user-limit-accept - [0:0]
 ### RULES ###
 
+{% for limit in ufw_connection_rate_limits %}
+### tuple ### limit {{ limit.protocol }} {{ limit.port }} 0.0.0.0/0 any 0.0.0.0/0 in
+-A ufw-user-input -p {{ limit.protocol }} --dport {{ limit.port }} -m state --state NEW -m recent --set
+-A ufw-user-input -p {{ limit.protocol }} --dport {{ limit.port }} -m state --state NEW -m recent --update --seconds 30 --hitcount 6 -j ufw-user-limit
+-A ufw-user-input -p {{ limit.protocol }} --dport {{ limit.port }} -j ufw-user-limit-accept
+
+{% endfor %}
 {% for port in ufw_whitelisted_ports %}
 ### tuple ### allow any {{ port }} 0.0.0.0/0 any 0.0.0.0/0 in
 -A ufw-user-input -p tcp --dport {{ port }} -j ACCEPT
