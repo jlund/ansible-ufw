@@ -18,8 +18,9 @@
 ### RULES ###
 
 {% for port in ufw_whitelisted_ports %}
-### tuple ### allow tcp {{ port }} 0.0.0.0/0 any 0.0.0.0/0 in
+### tuple ### allow any {{ port }} 0.0.0.0/0 any 0.0.0.0/0 in
 -A ufw-user-input -p tcp --dport {{ port }} -j ACCEPT
+-A ufw-user-input -p udp --dport {{ port }} -j ACCEPT
 
 {% endfor %}
 
