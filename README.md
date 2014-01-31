@@ -14,16 +14,17 @@ Role Variables
       - { port: 53,   protocol: udp }
       - { port: 3306, protocol: tcp }
 
-**ufw_whitelisted_ipv4_addresses**: A list of IPv4 addresses that the firewall should allow access to. The default is empty. These addresses will be able to access any available port on the system, including ones that are not made publicly accessible via ufw_whitelisted_ports. This is a good way to ensure that certain services can only be reached by approved IP addresses. For example:
+**ufw_whitelisted_ipv4_addresses**: A list of IPv4 address, port, and protocol tuples that the firewall should allow access to. The default is empty. This is a good way to ensure that certain services can only be reached by approved IP addresses. The following example would grant SSH access to 192.168.0.1 over TCP, and OpenVPN access to 10.0.0.1 over UDP:
 
     ufw_whitelisted_ipv4_addresses:
-      - 192.168.0.1
-      - 10.0.0.1
+      - { address: 192.168.0.1, port: 22,   protocol: tcp }
+      - { address: 10.0.0.1,    port: 1194, protocol: udp }
 
-**ufw_whitelisted_ipv6_addresses**: This variable behaves the same as ufw_whitelisted_ipv4_addresses, except it applies to IPv6 addresses. The default is empty. The following example would allow access from Google's IPv6 address:
+**ufw_whitelisted_ipv6_addresses**: This variable behaves exactly the same as ufw_whitelisted_ipv4_addresses, except it applies to IPv6 addresses. The default is empty. The following example would allow Google's IPv6 address to access the DNS port over UDP, and Facebook's IPv6 address to access the Sphinx port over TCP. Note that it's important to enclose the IPv6 addresses in quotes, otherwise their colons will confuse the parser:
 
     ufw_whitelisted_ipv6_addresses:
-      - 2607:f8b0:4004:802::1001
+      - { address: "2607:f8b0:4004:802::1001",          port: 53,   protocol: udp }
+      - { address: "2a03:2880:2110:df07:face:b00c:0:1", port: 9312, protocol: tcp }
 
 **ufw_whitelisted_ports**: A list of ports that the firewall should allow access to. The default is to open port 22. This variable applies to incoming connections from both IPv4 and IPv6 clients. If you wanted to allow access to SSH and Nginx, you might do something like this:
 

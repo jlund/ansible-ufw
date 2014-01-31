@@ -30,9 +30,9 @@
 -A ufw-user-input -p udp --dport {{ port }} -j ACCEPT
 
 {% endfor %}
-{% for ip in ufw_whitelisted_ipv4_addresses %}
-### tuple ### allow any any 0.0.0.0/0 any {{ ip }} in
--A ufw-user-input -s {{ ip }} -j ACCEPT
+{% for tuple in ufw_whitelisted_ipv4_addresses %}
+### tuple ### allow {{ tuple.protocol }} {{ tuple.port }} 0.0.0.0/0 any {{ tuple.address }} in
+-A ufw-user-input -p {{ tuple.protocol }} --dport {{ tuple.port }} -s {{ tuple.address }} -j ACCEPT
 
 {% endfor %}
 ### END RULES ###
