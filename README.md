@@ -6,7 +6,7 @@ Ansible role that installs and configures ufw, AKA [The Uncomplicated Firewall](
 Role Variables
 --------------
 
-ufw_connection_rate_limits: A list of port and protocol pairs that should be rate limited. The default is empty. According to the ufw man page, "ufw will deny connections if an IP address has attempted to initiate 6 or more connections in the last 30 seconds." **ufw currently only supports rate limits for incoming IPv4 connections.** The following example would limit TCP connections to the SSH port, TCP and UDP connections to the DNS port, and TCP connections to the MySQL port:
+**ufw_connection_rate_limits**: A list of port and protocol pairs that should be rate limited. The default is empty. According to the ufw man page, "ufw will deny connections if an IP address has attempted to initiate 6 or more connections in the last 30 seconds." *ufw currently only supports rate limits for incoming IPv4 connections.* The following example would limit TCP connections to the SSH port, TCP and UDP connections to the DNS port, and TCP connections to the MySQL port:
 
     ufw_connection_rate_limits:
       - { port: 22,   protocol: tcp }
@@ -14,18 +14,18 @@ ufw_connection_rate_limits: A list of port and protocol pairs that should be rat
       - { port: 53,   protocol: udp }
       - { port: 3306, protocol: tcp }
 
-ufw_whitelisted_ipv4_addresses: A list of IPv4 addresses that the firewall should allow access to. The default is empty. These addresses will be able to access any available port on the system, including ones that are not made publicly accessible via ufw_whitelisted_ports. This is a good way to ensure that certain services can only be reached by approved IP addresses. For example:
+**ufw_whitelisted_ipv4_addresses**: A list of IPv4 addresses that the firewall should allow access to. The default is empty. These addresses will be able to access any available port on the system, including ones that are not made publicly accessible via ufw_whitelisted_ports. This is a good way to ensure that certain services can only be reached by approved IP addresses. For example:
 
     ufw_whitelisted_ipv4_addresses:
       - 192.168.0.1
       - 10.0.0.1
 
-ufw_whitelisted_ipv6_addresses: This variable behaves the same as ufw_whitelisted_ipv4_addresses, except it applies to IPv6 addresses. The default is empty. The following example would allow access from Google's IPv6 address:
+**ufw_whitelisted_ipv6_addresses**: This variable behaves the same as ufw_whitelisted_ipv4_addresses, except it applies to IPv6 addresses. The default is empty. The following example would allow access from Google's IPv6 address:
 
     ufw_whitelisted_ipv6_addresses:
       - 2607:f8b0:4004:802::1001
 
-ufw_whitelisted_ports: A list of ports that the firewall should allow access to. The default is to open port 22. This variable applies to incoming connections from both IPv4 and IPv6 clients. If you wanted to allow access to SSH and Nginx, you might do something like this:
+**ufw_whitelisted_ports**: A list of ports that the firewall should allow access to. The default is to open port 22. This variable applies to incoming connections from both IPv4 and IPv6 clients. If you wanted to allow access to SSH and Nginx, you might do something like this:
 
     ufw_whitelisted_ports:
       - 22
