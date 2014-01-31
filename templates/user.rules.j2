@@ -23,13 +23,11 @@
 -A ufw-user-input -p udp --dport {{ port }} -j ACCEPT
 
 {% endfor %}
-
 {% for ip in ufw_whitelisted_ipv4_addresses %}
 ### tuple ### allow any any 0.0.0.0/0 any {{ ip }} in
 -A ufw-user-input -s {{ ip }} -j ACCEPT
 
 {% endfor %}
-
 ### END RULES ###
 
 ### LOGGING ###
