@@ -26,12 +26,13 @@ Role Variables
       - { address: "2607:f8b0:4004:802::1001",          port: 53,   protocol: udp }
       - { address: "2a03:2880:2110:df07:face:b00c:0:1", port: 9312, protocol: tcp }
 
-**ufw_whitelisted_ports**: A list of ports that the firewall should allow access to. The default is to open port 22. This variable applies to incoming connections from both IPv4 and IPv6 clients. If you wanted to allow access to SSH and Nginx, you might do something like this:
+**ufw_whitelisted_ports**: A list of port and protocol pairs that the firewall should allow access to. The default is to open port 22 over TCP. This variable applies to incoming connections from both IPv4 and IPv6 clients. If you wanted to allow access to SSH, DNS, and Nginx, you might do something like this:
 
     ufw_whitelisted_ports:
-      - 22
-      - 80
-      - 443
+      -  { port: 22,  protocol: tcp }
+      -  { port: 53,  protocol: udp }
+      -  { port: 80,  protocol: tcp }
+      -  { port: 443, protocol: tcp }
 
 License
 -------

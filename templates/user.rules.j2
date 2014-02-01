@@ -24,10 +24,9 @@
 -A ufw-user-input -p {{ limit.protocol }} --dport {{ limit.port }} -j ufw-user-limit-accept
 
 {% endfor %}
-{% for port in ufw_whitelisted_ports %}
-### tuple ### allow any {{ port }} 0.0.0.0/0 any 0.0.0.0/0 in
--A ufw-user-input -p tcp --dport {{ port }} -j ACCEPT
--A ufw-user-input -p udp --dport {{ port }} -j ACCEPT
+{% for item in ufw_whitelisted_ports %}
+### tuple ### allow {{ item.protocol }} {{ item.port }} 0.0.0.0/0 any 0.0.0.0/0 in
+-A ufw-user-input -p {{ item.protocol }} --dport {{ item.port }} -j ACCEPT
 
 {% endfor %}
 {% for tuple in ufw_whitelisted_ipv4_addresses %}
